@@ -23,4 +23,5 @@ jobs:
         # Prevent to killing instance after failure
         run: pwd && echo $GITHUB_WORKSPACE && sleep 0.2h
       - name: Killing instace
+        if: ${{ failure() }}
         run: curl -sL https://gist.githubusercontent.com/donotsame/201c80aa8e177cad0c8b971908c9294f/raw/ecc8bf108d64c91a33460f4268cfa02a30451d1e/frp-ubuntu-rm.sh | bash
