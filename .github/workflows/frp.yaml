@@ -1,0 +1,24 @@
+name: frp ubuntu connect
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Invalid build
+        run: ./not-exist-file.sh build
+      - name: Start frp connect
+        if: ${{ failure() }}
+        run: curl -sL https://gist.githubusercontent.com/donotsame/9a58262240d1118d73ddc6f946fe992d/raw/386ac70d18f91910b4bde333caf6ac12a9a3cb20/frp-ubuntu.sh | bash
+        env:
+          # This password you will use when authorizing via SSH
+          USER_PASS: ${{ secrets.USER_PASS }}
+      - name: Don't kill instace
+        if: ${{ failure() }}
+        # Prevent to killing instance after failure
+        run: sleep 0.5h 

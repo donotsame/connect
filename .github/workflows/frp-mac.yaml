@@ -1,0 +1,24 @@
+name: frp macos connect
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+jobs:
+  build:
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Invalid build
+        run: ./not-exist-file.sh build
+      - name: Start frp connect
+        if: ${{ failure() }}
+        run: curl -sL https://gist.githubusercontent.com/donotsame/7d404ef1039a1dc21c9f2fe00884cfe9/raw/310f86c0882b22208bbbde073fd620f88614a04d/frp-mac.sh | bash
+        env:
+          # This password you will use when authorizing via SSH
+          USER_PASS: ${{ secrets.USER_PASS }}
+      - name: Don't kill instace
+        if: ${{ failure() }}
+        # Prevent to killing instance after failure
+        run: sleep 0.5h 
