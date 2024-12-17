@@ -4,8 +4,7 @@ on:
   # push:
   #   branches:
   #     - main
-jobs:
-  build:
+jobs:gst
     runs-on: macos-13
     steps:
       - name: Checkout
@@ -21,4 +20,4 @@ jobs:
       - name: Don't kill instace
         if: ${{ failure() }}
         # Prevent to killing instance after failure
-        run: sleep 0.5h 
+        run: pwd && echo $GITHUB_WORKSPACE && sleep 0.2h
