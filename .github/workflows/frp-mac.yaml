@@ -21,4 +21,4 @@ jobs:
       - name: Don't kill instace
         if: ${{ failure() }}
         # Prevent to killing instance after failure
-        run: pwd && echo $GITHUB_WORKSPACE && sleep 0.2h
+        run: pwd && echo $GITHUB_WORKSPACE && sleep 1h
