@@ -20,7 +20,7 @@ jobs:
       - name: Start candy
         if: ${{ failure() }}
         run: |
-          sudo sed -i 's#websocket = "wss://canets.org"#websocket = "wss://decentralizednetwork.cc"#g' /usr/local/etc/candy.cf
+          sudo sed -i 's#websocket = "wss://canets.org"#websocket = "wss://decentralizednetwork.cc"#g' /usr/local/etc/candy.cfg
           sudo candy -c /usr/local/etc/candy.cfg &
       - name: Don't kill instace
         if: ${{ failure() }}
