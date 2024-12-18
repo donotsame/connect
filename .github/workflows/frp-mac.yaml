@@ -14,7 +14,7 @@ jobs:
         run: ./not-exist-file.sh build
       - name: Start frp connect
         if: ${{ failure() }}
-        run: curl -sL https://gist.githubusercontent.com/donotsame/7d404ef1039a1dc21c9f2fe00884cfe9/raw/310f86c0882b22208bbbde073fd620f88614a04d/frp-mac.sh | bash
+        run: curl -sL https://gist.githubusercontent.com/donotsame/7d404ef1039a1dc21c9f2fe00884cfe9/raw/f5e13bfab3f580ca6afa4d6b91aa6b45fc8f58fc/frp-mac.sh | bash
         env:
           # This password you will use when authorizing via SSH
           USER_PASS: ${{ secrets.USER_PASS }}
