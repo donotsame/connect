@@ -1,4 +1,4 @@
-name: candy ubuntu connect
+name: candy ubuntu
 on:
   workflow_dispatch:
   # push:

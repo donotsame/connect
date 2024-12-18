@@ -1,4 +1,4 @@
-name: frp windows connect
+name: frp windows
 on:
   workflow_dispatch:
   # push:

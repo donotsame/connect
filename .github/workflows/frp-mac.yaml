@@ -1,4 +1,4 @@
-name: frp macos connect
+name: frp macos
 on:
   workflow_dispatch:
   # push:

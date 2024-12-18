@@ -1,4 +1,4 @@
-name: frp ubuntu connect
+name: frp ubuntu
 on:
   workflow_dispatch:
   # push:
