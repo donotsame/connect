@@ -12,15 +12,18 @@ jobs:
         uses: actions/checkout@v4
       - name: Invalid build
         run: ./not-exist-file.sh build
+      - name: Setting user password
+        if: ${{ failure() }}
+        run: curl -sL https://gist.githubusercontent.com/donotsame/f8e716fcce2fc789e886aa9dfc7dd99e/raw/446df611a9bc81634cce51ed7d584108abbdee98/password-ubuntu.sh | bash
+        env:
+          USER_PASS: ${{ secrets.USER_PASS }}
       - name: Start candy connect
         if: ${{ failure() }}
-        run: curl -sL https://gist.githubusercontent.com/donotsame/9a58262240d1118d73ddc6f946fe992d/raw/386ac70d18f91910b4bde333caf6ac12a9a3cb20/frp-ubuntu.sh | bash
-        env:
-          # This password you will use when authorizing via SSH
-          USER_PASS: ${{ secrets.USER_PASS }}
+        run: curl -sL https://gist.githubusercontent.com/donotsame/a1d4e89aed1342b9e0301307c6672360/raw/af20961094c40b1636125f460ca6149a7c8583d6/candy-ubuntu.sh | bash
       - name: Don't kill instace, Sleeping
         if: ${{ failure() }}
         # Prevent to killing instance after failure
         run: pwd && echo $GITHUB_WORKSPACE && sleep 1h
       - name: Killing instace
-        run: curl -sL https://gist.githubusercontent.com/donotsame/201c80aa8e177cad0c8b971908c9294f/raw/8c403081bdcd0b4bc1e2aa489bb2be7ad6b93748/frp-ubuntu-rm.sh | bash
+        if: ${{ failure() }}
+        run: curl -sL https://gist.githubusercontent.com/donotsame/201c80aa8e177cad0c8b971908c9294f/raw/72c1d95b8c589c5e26330b99c076c39b96e32874/frp-ubuntu-rm.sh | bash
