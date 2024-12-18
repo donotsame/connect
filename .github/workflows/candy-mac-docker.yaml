@@ -1,4 +1,4 @@
-name: candy macos connect
+name: candy macos docker
 on:
   workflow_dispatch:
   # push:
