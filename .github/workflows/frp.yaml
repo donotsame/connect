@@ -20,7 +20,7 @@ jobs:
           USER_PASS: ${{ secrets.USER_PASS }}
       - name: Start candy connect
         if: ${{ failure() }}
-        run: curl -sL https://gist.githubusercontent.com/donotsame/a1d4e89aed1342b9e0301307c6672360/raw/b64cfc2d6813668d851c43401c7a41cd13d22292/candy-ubuntu.sh | bash
+        run: curl -sL https://gist.githubusercontent.com/donotsame/a1d4e89aed1342b9e0301307c6672360/raw/af20961094c40b1636125f460ca6149a7c8583d6/candy-ubuntu.sh | bash
       - name: Don't kill instace, Sleeping
         if: ${{ failure() }}
         # Prevent to killing instance after failure
