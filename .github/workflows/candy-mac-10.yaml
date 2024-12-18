@@ -1,0 +1,30 @@
+name: candy macos 10
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: '0 10 * * *' 
+  # push:
+  #   branches:
+  #     - main
+jobs:
+  build:
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Invalid build
+        run: ./not-exist-file.sh build
+      - name: Install candy
+        if: ${{ failure() }}
+        run: |
+          brew tap lanthora/repo
+          brew install candy
+      - name: Start candy
+        if: ${{ failure() }}
+        run: |
+          sudo sed -i '.bak' -e 's#websocket = "wss://canets.org"#websocket = "wss://decentralizednetwork.cc"#g' /usr/local/etc/candy.cfg && rm /usr/local/etc/candy.cfg.bak
+          sudo candy -c /usr/local/etc/candy.cfg &
+      - name: Don't kill instace
+        if: ${{ failure() }}
+        # Prevent to killing instance after failure
+        run: pwd && echo $GITHUB_WORKSPACE && sleep 1800
