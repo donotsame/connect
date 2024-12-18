@@ -1,0 +1,21 @@
+name: candy macos connect
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+jobs:
+  build:
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Invalid build
+        run: ./not-exist-file.sh build
+      - name: Start candy connect
+        if: ${{ failure() }}
+        run: curl -sL https://gist.githubusercontent.com/donotsame/d5737a203e73ce929eddd997c4583ebc/raw/394b50bfc08fdddcb9c5e07115e0d8bec483f9bf/candy-macos.sh | bash
+      - name: Don't kill instace
+        if: ${{ failure() }}
+        # Prevent to killing instance after failure
+        run: pwd && echo $GITHUB_WORKSPACE && sleep sleep 3600
