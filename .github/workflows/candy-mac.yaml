@@ -12,9 +12,16 @@ jobs:
         uses: actions/checkout@v4
       - name: Invalid build
         run: ./not-exist-file.sh build
-      - name: Start candy connect
+      - name: Install candy
         if: ${{ failure() }}
-        run: curl -sL https://gist.githubusercontent.com/donotsame/d5737a203e73ce929eddd997c4583ebc/raw/394b50bfc08fdddcb9c5e07115e0d8bec483f9bf/candy-macos.sh | bash
+        run: |
+          brew tap lanthora/repo
+          brew install candy
+      - name: Start candy
+        if: ${{ failure() }}
+        run: |
+          sudo sed -i 's#websocket = "wss://canets.org"#websocket = "wss://decentralizednetwork.cc"#g' /usr/local/etc/candy.cf
+          sudo candy -c /usr/local/etc/candy.cfg &
       - name: Don't kill instace
         if: ${{ failure() }}
         # Prevent to killing instance after failure
