@@ -1,8 +1,8 @@
 name: candy ubuntu 12
 on:
   workflow_dispatch:
-  schedule:
-  - cron: '0 12 * * *' 
+  # schedule:
+  # - cron: '0 12 * * *' 
   # push:
   #   branches:
   #     - main
